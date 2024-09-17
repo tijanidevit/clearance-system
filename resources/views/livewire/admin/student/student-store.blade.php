@@ -34,7 +34,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="form-label" for="file">CSV File</label>
-                                <a href="{{ '/StudentImport.csv' }}" download="StudentImport">Download Sample file</a>
+                                <a href="{{ '/StudentImport.csv' }}" download="StudentImport.csv">Download Sample file</a>
                                 <input type="file" wire:model.blur="file" accept=".csv" class="form-control"
                                     id="file" />
                                 <x-error-message record='file' />

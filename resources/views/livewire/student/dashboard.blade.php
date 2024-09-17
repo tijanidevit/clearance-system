@@ -60,8 +60,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex justify-content-between">
-                                        <p><strong>{{auth()->user()->name}}</strong></p>
-                                        <p><strong>{{auth()->user()->student->matric_number}}</strong></p>
+                                        <p><strong>{{ auth()->user()->name }}</strong></p>
+                                        <p><strong>{{ auth()->user()->student->matric_number }}</strong></p>
                                     </div>
                                 </div>
                                 @forelse ($approvedStages as $stage)
@@ -74,6 +74,7 @@
                                             <div class="overlay-text"
                                                 style="position: absolute; bottom: 10px; left: 10px; color: white; background-color: rgba(0, 0, 0, 0.5); padding: 5px 20px; border-radius: 5px;">
                                                 <strong>{{ $stage->moderator->name }}</strong><br>
+                                                <strong>{{ $stage->stage->name }}</strong><br>
                                                 <small>{{ $stage->created_at->format('d/m/y') }}</small>
                                             </div>
                                         </div>

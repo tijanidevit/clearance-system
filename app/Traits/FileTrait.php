@@ -12,11 +12,11 @@ trait FileTrait
     }
     public function uploadFile($folder, $file)
     {
-        if (App::environment('local')) {
-            return url(Storage::url(Storage::putFile("$folder", $file, 'public')));
-        } else {
+        // if (App::environment('local')) {
+        //     return url(Storage::url(Storage::putFile("$folder", $file, 'public')));
+        // } else {
             return $file->storeOnCloudinary($folder)->getPath();
-        }
+        // }
     }
 
 

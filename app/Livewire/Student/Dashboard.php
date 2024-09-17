@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Student;
 
+use App\Enums\ClearanceStatusEnum;
 use App\Models\Stage;
 use App\Models\StageStudent;
 use Livewire\Component;
 
 class Dashboard extends Component
 {
-
     public function render()
     {
         $student = auth()->user()->student;
@@ -22,8 +22,13 @@ class Dashboard extends Component
             ])
             ->get();
 
-        $approvedStages = StageStudent::where('student_id', $student->id)->approved()->with(['student', 'stage', 'moderator'])->get();
+        $approvedStages = StageStudent::where([
+            'student_id' => $student->id,
+            'status' => ClearanceStatusEnum::APPROVED->value,
+        ])
+            ->with(['student', 'stage', 'moderator'])
+            ->get();
 
-        return view('livewire.student.dashboard', compact('stages', 'approvedStages'))->title('Dashboard');
+        return view('livewire.student.dashboard', compact('stages', 'approvedStages'))->title('Home');
     }
 }
