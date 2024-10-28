@@ -23,6 +23,10 @@
                         <i class="ph-duotone ph-diamonds-four"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
+                        <a href="{{route('password')}}" class="dropdown-item">
+                            <i class="ph-duotone ph-lock"></i>
+                            <span>Update password</span>
+                        </a>
                         <a href="{{route('logout')}}" class="dropdown-item">
                             <i class="ph-duotone ph-power"></i>
                             <span>Logout</span>

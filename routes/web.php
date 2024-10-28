@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Login;
+use App\Livewire\UpdatePassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,6 @@ Route::middleware('auth')->group(function () {
         Auth::logout();
         return to_route('login');
     })->name('logout');
+
+    Route::get('password', UpdatePassword::class)->name('password');
 });
