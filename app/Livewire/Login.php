@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Livewire;
 
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -20,32 +20,41 @@ class Login extends Component
 
     public function rules() : array {
         return [
-            'email' => 'required|email|exists:users',
+            'email' => 'required|string',
             'password' => 'required|string',
         ];
     }
 
     public function messages() : array {
         return [
-            'email.exists' => 'A user with this email does not exist',
+            'email.exists' => 'A user with this email or matric number does not exist',
         ];
     }
 
     public function login() {
         $data = $this->validate();
+        $isEmail = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
 
-        if (Auth::attempt($data)) {
-            if (auth()->user()->isAdmin()) {
+        $user = $isEmail
+            ? User::where('email', $data['email'])->first()
+            : Student::where('matric_number', $data['email'])->first()?->user;
+
+
+        if (!$user) {
+            $message = $isEmail ? "Email" : "Matric Number";
+            $this->addError('email', "Incorrect $message");
+            return;
+        }
+
+        if ($user && Auth::attempt(['email' => $user->email, 'password' => $data['password']])) {
+            if ($user->isAdmin()) {
                 return $this->redirect(route('admin.dashboard'));
-            }
-            elseif (auth()->user()->isModerator()) {
+            } elseif ($user->isModerator()) {
                 return $this->redirect(route('moderator.dashboard'));
-            }
-            else{
+            } else {
                 return $this->redirect(route('student.dashboard'));
             }
-        }
-        else {
+        } else {
             $this->addError('password', 'Incorrect Password');
         }
     }

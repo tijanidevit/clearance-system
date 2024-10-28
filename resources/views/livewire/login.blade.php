@@ -9,7 +9,7 @@
                         <h4 class="f-w-500 mb-1">Login</h4>
                     </div>
                     <div class="mb-3">
-                        <input type="email" wire:model.blur='email' class="form-control" id="floatingInput" placeholder="Email Address" />
+                        <input type="text" wire:model.blur='email' class="form-control" id="floatingInput" placeholder="Email Address" />
                         <x-error-message record='email' />
                     </div>
                     <div class="mb-3">

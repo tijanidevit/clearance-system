@@ -5,6 +5,7 @@
             @php
                 $lastStageStudent = $stage
                     ->stageStudents()
+                    ->whereHas('stage')
                     ->where('student_id', auth()->user()->student->id)
                     ->latest()
                     ->first();
@@ -47,11 +48,11 @@
         @endforelse
 
 
-        <div class="mt-2">
+        @if (auth()->user()->student->status == 'completed')
+            <div class="mt-2">
 
-            <div class="card">
-                <div class="card-body">
-                    @if (auth()->user()->student->status == 'completed')
+                <div class="card">
+                    <div class="card-body">
                         <div class="my-3">
                             <h4>Hurray!!! 👏🏽👏🏽👏🏽</h4>
                             <p>You have completed your clearance</p>
@@ -80,16 +81,17 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <p>No stages found.</p>
+                                    <p>No approved stage found.</p>
                                 @endforelse
                             </div>
                         </div>
 
                         <button onclick="printStamp()" class="btn btn-dark my-3"> Print Clearance Slip</button>
+                    </div>
                 </div>
             </div>
-            @endif
-        </div>
+        @endif
+
     </div>
 </div>
 

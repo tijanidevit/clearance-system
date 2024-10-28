@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
                 return route('moderator.dashboard');
             }
             else {
-                return route('student.dashboard');
+                return route('customer.dashboard');
             }
 
         });
